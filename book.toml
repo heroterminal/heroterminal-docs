@@ -1,0 +1,11 @@
+[book]
+authors = ["HeroTerminal"]
+language = "en"
+multilingual = false
+src = "src"
+title = "HeroTerminal Developer Docs"
+
+[output.html]
+favicon = "favicon.svg"
+additional-css = ["theme/hero.css"]
+additional-js = ["theme/clarity.js"]
