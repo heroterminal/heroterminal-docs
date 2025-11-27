@@ -4,7 +4,13 @@
 
 ---
 
-# Bootcamp Design
+# Architecture
+- [Mystery-as-Code](architecture/mystery_as_code.md)
+- [Filesystem (Lens)](architecture/filesystem.md)
+
+---
+
+# Case Design (legacy paths)
 - [Overview](bootcamp/overview.md)
 - [The `bootcamp.yaml` File](bootcamp/bootcamp_yaml.md)
 - [The `herocert` Spec](bootcamp/herocert_spec.md)
@@ -12,7 +18,7 @@
 
 ---
 
-# Mission Design
+# Lead Design (legacy paths)
 - [The `mission.yaml` File](mission/mission_yaml.md)
 - [Simulating Commands (`custom_commands`)](mission/custom_commands.md)
 - [Defining the Solution (`solution`)](mission/solution.md)

@@ -1,10 +1,13 @@
 # Introduction
 
-Welcome to the HeroTerminal Developer Docs.
+Welcome to the HeroTerminal developer docs. HeroTerminal is now **Mystery-as-Code**: every investigation is defined as text + assets in git, layered into the Lens filesystem at runtime.
 
-Use this reference when you plan, validate, and submit new bootcamps. Every scenario that lands in production follows the same structure, scoring rules, and API contracts described here.
+Terminology (legacy → current):
+- **Bootcamp** → **Case File**
+- **Mission** → **Lead**
+- **Answer/Submit** → **Finding / File Report**
 
-These docs cover:
-- The YAML specification for bootcamps and missions.
-- How validation works (API and helper script).
-- The scoring guidelines and submission process.
+What you’ll find here:
+- How to author case/lead YAML (legacy filenames remain for now).
+- How the layered filesystem works (Investigator Home → Lead overlay on `~/desk` with drawer rollover).
+- How validation and the APIs behave.
