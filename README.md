@@ -1,13 +1,13 @@
 # HeroTerminal Docs
 
-This repository contains the official documentation for **HeroTerminal** and **HeroOS**.
+This repository contains the official documentation for **HeroTerminal** and the **Lens** investigator interface.
 
 It is the home for:
 
-- The HeroOS bootcamp and mission specification
-- Author guides for creating and testing bootcamps
+- The Case File (scenario) and Lead specification used by Lens
+- Author guides for creating and testing new Case Files
 - Reference docs for commands, environment behaviour and scoring
-- Examples that show how to structure real bootcamps
+- Examples that show how to structure real Leads
 
 If you want to build content for HeroTerminal, this is the place to start.
 
@@ -15,14 +15,14 @@ If you want to build content for HeroTerminal, this is the place to start.
 
 ## Who is this for?
 
-- Bootcamp authors who want to create new stories and training scenarios.
-- Power users who want to understand how HeroOS behaves under the hood.
+- Case authors who want to create new stories and investigation scenarios.
+- Power users who want to understand how Lens behaves under the hood.
 - Community contributors who want to improve clarity, fix typos or extend guides.
 
 If you only want to play HeroTerminal, go to:
 
 - App: https://app.heroterminal.com  
-- Bootcamps repo: https://github.com/heroterminal/heroterminal-bootcamps
+- Case Files repo: https://github.com/heroterminal/heroterminal-world
 
 ---
 
@@ -30,14 +30,17 @@ If you only want to play HeroTerminal, go to:
 
 The structure may evolve over time, but in general:
 
-- `spec/`  
-  Core HeroOS and bootcamp specification documents.
+- `casefiles/`  
+  Core Case File specification documents (scenario manifest, scoring, HeroCert).
 
-- `guides/`  
-  Step by step guides for authors, including how to create and test a bootcamp.
+- `leads/`  
+  Lead specification (lead manifest, command simulation, solutions).
 
-- `examples/`  
-  Small, focused examples that demonstrate patterns, checks and mission design.
+- `architecture/`  
+  How Lens renders the filesystem and the Mystery-as-Code model.
+
+- `tools/`  
+  Validation helper scripts for packaging and checking Case Files.
 
 Check the individual README files inside those folders for more detail if present.
 
@@ -68,7 +71,7 @@ The documentation in this repository is licensed under:
 You are free to:
 
 - Read and share the documentation.
-- Use it to create HeroTerminal bootcamps and related content.
+- Use it to create HeroTerminal Case Files and related content.
 
 You may not:
 

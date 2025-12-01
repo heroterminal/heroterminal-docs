@@ -5,7 +5,7 @@ Attribution-NoDerivatives 4.0 International License.
 
 You are free to:
 - Share — copy and redistribute the material in any medium or format
-- Use the material to create HeroTerminal bootcamps or related content
+- Use the material to create HeroTerminal Case Files or related content
 
 Under the following terms:
 - Attribution — You must give appropriate credit to HeroTerminal.com.

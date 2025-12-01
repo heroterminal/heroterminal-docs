@@ -1,6 +1,6 @@
 # The `herocert` Spec
 
-Every bootcamp awards a HeroCert when all missions are completed. The `herocert` block in `bootcamp.yaml` controls how that certificate is rendered on app.heroterminal.com and in public share links.
+Every Case File awards a HeroCert when all Leads are completed. The `herocert` block in `case.yaml` controls how that certificate is rendered on app.heroterminal.com and in public share links.
 
 | Key | Type | Required? | Description |
 | :--- | :--- | :--- | :--- |
@@ -8,18 +8,19 @@ Every bootcamp awards a HeroCert when all missions are completed. The `herocert`
 | `subtitle` | String | **Yes** | One sentence describing what the player achieved. |
 | `description` | String | **Yes** | Longer blurb that appears on the certificate details page. Markdown allowed. |
 | `default_sharing_text` | String | No | Text used when players share the certificate link on social media. |
-| `svg` | Path | No | Optional path to a custom SVG badge inside the bootcamp directory (`herocert.svg`). |
+| `svg` | Path | No | Optional path to a custom SVG badge inside the Case File directory (`herocert.svg`). |
 
-## Example
+## Example (The Dockyard Protocol)
 
 ```yaml
 herocert:
-  title: "Certified Threat Containment Specialist"
-  subtitle: "Awarded for securing the HeroBank infrastructure."
+  title: "Lyon Docks Investigator"
+  subtitle: "Solved: The Dockyard Protocol"
   description: |
-    You tracked the lateral movement, contained the breach, and restored
-    services without losing customer data. HeroBank's SOC owes you a drink.
-  default_sharing_text: "I just completed the HeroBank containment bootcamp!"
+    Identified the ghost container, reconstructed the tampered manifests,
+    uncovered fraudulent internal access, and attributed the manipulation
+    to the responsible party.
+  default_sharing_text: "I just closed The Dockyard Protocol in Lens."
 ```
 
 ## Tips

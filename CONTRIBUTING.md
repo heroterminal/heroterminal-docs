@@ -2,7 +2,7 @@
 
 Thanks for wanting to improve the HeroTerminal documentation.
 
-This repo is focused on the written docs only. The simulator, web app and bootcamp content all live in separate repositories.
+This repo is focused on the written docs only. The simulator, web app and Case File content all live in separate repositories.
 
 ---
 
@@ -31,7 +31,7 @@ We aim to keep the docs:
 
 - Clear and concise.
 - Stable for authors that rely on them.
-- Consistent with the behaviour of HeroOS and the bootcamp engine.
+- Consistent with the behaviour of Lens and the Case File engine.
 
 ---
 
