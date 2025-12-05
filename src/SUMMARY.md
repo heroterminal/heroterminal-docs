@@ -4,6 +4,17 @@
 
 ---
 
+# The HeroTerminal Collective (The Foundation)
+- [Universe Rules](rules/universe-rules.md)
+- [Investigator Dossier Template](rules/investigator-dossier-template.md)
+
+---
+
+# Authoring & Investigators
+- [Luc Vernier Protocols](authoring/investigators/luc-vernier.md)
+
+---
+
 # Architecture
 - [Mystery-as-Code](architecture/mystery_as_code.md)
 - [Filesystem (Lens)](architecture/filesystem.md)
@@ -25,3 +36,5 @@
 ---
 
 - [Legal](legal.md)
+
+
