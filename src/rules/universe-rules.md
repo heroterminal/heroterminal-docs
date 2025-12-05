@@ -10,11 +10,11 @@ If your idea doesn't fit these pillars, it doesn't fit HeroTerminal.
 
 ---
 
-## Pillar 1: The Knowledge Mandate (Fróðleikurinn)
+## Pillar 1: The Knowledge Mandate
 
 **The primary goal of HeroTerminal is edutainment.** The player must walk away from every investigation knowing something real about the world that they didn't know before.
 
-### 1.1. The World is Real (Staðarhættir)
+### 1.1. The World is Real
 Every case must be grounded in real-world geography.
 * **Rule:** You cannot invent cities. You must use real locations, streets, buildings, and historical contexts.
 * **Goal:** The player should feel like they have virtually visited a place. If a case is set in Hamburg, they should learn about the Speicherstadt district or the history of the port. If it's in Lyon, they learn about the traboules.
@@ -26,7 +26,7 @@ Every Lead (folder) within a case should contain at least one "nugget" of real-w
 
 ---
 
-## Pillar 2: Narrative Immersion (Upplifunin)
+## Pillar 2: Narrative Immersion
 
 **We are creating interactive cinema/literature.** The experience should feel like binging a high-quality crime show or reading a gripping noir novel, but the player is in the driver's seat.
 
@@ -40,11 +40,11 @@ The "Flavor" files (descriptions, emails, notes) are just as important as the "E
 
 ---
 
-## Pillar 3: Grounded Investigation (Rannsóknin)
+## Pillar 3: Grounded Investigation
 
 HeroTerminal is about the *process* of investigation, respecting human limitations and reality.
 
-### 3.1. No Superpowers (Raunsæi)
+### 3.1. No Superpowers
 * **Physics applies:** No magic, no psychic abilities, no sci-fi tech that doesn't exist today.
 * **Human Limits:** Investigators get tired, they make mistakes, they have biases. The player must navigate these flaws.
 
