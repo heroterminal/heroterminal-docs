@@ -12,6 +12,7 @@
 
 # Authoring & Investigators
 - [Luc Vernier Protocols](authoring/investigators/luc-vernier.md)
+- [The Vernier Clan](authoring/investigators/vernier-clan.md)
 
 ---
 
@@ -36,5 +37,4 @@
 ---
 
 - [Legal](legal.md)
-
 
