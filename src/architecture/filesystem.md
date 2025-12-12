@@ -1,126 +1,67 @@
 # Lens Filesystem Architecture
 
-Lens operates as a strict, proprietary sandbox environment. It defines its own structure and does not adhere to standard OS conventions.
+Lens builds a virtual filesystem by stacking authored layers. The player only sees a single Workspace, but behind the scenes Investigator, Case, and Lead assets are overlaid with strict precedence.
 
-## Directory Structure
+## Asset Hierarchy (what belongs where?)
 
-The file system is a unified view constructed dynamically at runtime by merging layers directly into the **Workspace**.
-The file system mounts everything into the top level (`/`).
+- **Investigator Assets (Inventory):** Old Luc personal belongings (e.g., Personal notes, Old emails, shopping lists). Lives in `investigators/<id>/fs/**`.
+- **Case Assets (Starting Desk):** Files Claire/Sylvie send at the start (maps, background briefs, manuals). Lives in `cases/<case>/fs/**`.
+- **Lead Assets (Evidence):** Items discovered while solving a lead (scent strip, copper flask, chemical vial). Lives in `cases/<case>/fs/<lead-key>/**` and only appear when that lead is active.
 
-* **/** (THE WORKSPACE) -> Contains investigator tools, personal files, and general case context.
-* **/desk** -> Contains **Active Evidence** for the current lead.
-* **/desk/drawer** -> Contains **Archived Evidence** from completed leads.
+## Directory Layout at Runtime
 
----
+- `/` — Workspace (merged Investigator + Case layers).
+- `/desk/` — Active Lead evidence.
+- `/desk/drawer/` — Archived evidence from completed leads.
 
-## Authoring Cheatsheet
+## Authoring Rules
 
-**Put global investigator files here:**
-`investigators/<id>/fs/**`
-➡️ Ends up in `/` (Workspace)
+- Put global investigator files in `investigators/<id>/fs/**` → becomes `/...`.
+- Put case-wide files in `cases/<case>/fs/**` → becomes `/...` (you can place them under a subfolder like `/desk/` if you want them on the desk from the start of every lead).
+- Put lead-specific files in `cases/<case>/fs/<lead-key>/**` → becomes `/desk/...` while that lead is active.
+- Do **not** author anything into `/desk/drawer`; rollover is automatic.
 
-**Put case-wide files here:**
-`cases/<case>/fs/**`
-➡️ Ends up in `/` (Workspace)
+## Overlay Precedence (highest wins)
 
-**Put lead-specific evidence here:**
-`cases/<case>/fs/<lead-key>/**`
-➡️ Ends up in `/desk/`
+`Lead Layer > Case Layer > Investigator Layer`
 
-**Do NOT author anything into `/desk/drawer`**
-➡️ Drawer is populated automatically when a lead completes.
+If two layers define the same path, the active lead file wins, then case, then investigator.
 
-**Overlay Precedence (highest wins):**
-Lead Layer > Case Layer > Investigator Layer
+## Desk Lifecycle
 
----
+1. Start of a lead: `/desk/` is populated with the active lead’s assets plus any case files you placed under `/desk/`.
+2. Complete a lead: everything in `/desk/` is moved to `/desk/drawer/<lead-key>/`.
+3. Next lead starts with a fresh `/desk/`, but the drawer keeps history.
 
-## The 4-Layer Construction Logic
+## Example: “The Midnight Harvest”
 
-The virtual filesystem is built by stacking these layers in this specific order:
+**State:** Investigator `lvernier`; active case `2025-lvernier-the-midnight-harvest`; Lead 1 solved, Lead 2 active.
 
-### 1. Investigator Layer (Base)
-* **Source:** `investigators/<id>/fs/**`
-* **Mount Point:** `/`
-* **Purpose:** The investigator's personal tools and persistent files. These exist across all cases.
-* **Usage Guidelines:**
-    * Avoid referencing specific cases or dates in these files unless you are certain they won’t conflict with future cases (e.g., generic tools or evergreen personal notes).
+**Authored sources**
+- Investigator: `fs/playlist/blues.m3u`, `fs/personal/elise/2023_incident_galeries.eml`
+- Case (global): `fs/desk/map_grasse_valley.svg`, `fs/desk/clipping_lyon_herald.svg`, `fs/desk/doc_lab_codes.md`, `fs/desk/manual_refractometry.md`, `fs/desk/dossier_helene_vasseur.txt`
+- Lead 02: `fs/lead-02/tool_refractometer_view.svg`
+- Lead 01 (completed, rolled into drawer): `fs/lead-01/evidence_mouillette_strip.svg`, `fs/lead-01/log_visual_inspection.txt`
 
-### 2. Case Layer (Context)
-* **Source:** `cases/<case_key>/fs/**` (Global files only)
-* **Mount Point:** `/` (Merges into Workspace)
-* **Purpose:** Files relevant to the active case timeline but not specific to a single lead.
-* **Usage Guidelines:**
-    * Use for case-specific background that should be visible during **every** lead of this case.
-    * **Context:** A case represents a specific point in time for an investigator. Personal banter, emails, or recent events are highly encouraged here to add depth.
-    * Ideal for:
-        * Case briefings (PDFs/Text).
-        * News articles (e.g., *Lyon Herald*) about the incident.
-        * Personal notes written specifically during this investigation.
-        * Personal emails or corporate correspondence.
-        * Ephemeral items: Recent shopping lists, gym invoices, or calendar events relevant to that timeframe.
-
-### 3. Lead Layer (The Desk)
-* **Source:** `cases/<case_key>/fs/<lead_key>/**`
-* **Mount Point:** `/desk/`
-* **Purpose:** The immediate files and evidence required to solve the *current* objective.
-* **Usage Guidelines:**
-    * Use for evidence that must appear on the desk strictly when that lead is active.
-    * **Note:** Assume the desk is empty at the start of a lead (except for what you explicitly place here).
-
-### 4. Drawer Rollover (History)
-* **Trigger:** When a lead is completed.
-* **Action:** Everything currently in `/desk/` is moved to `/desk/drawer/<lead_key>/`.
-* **Result:** The Desk is cleared for the next lead, but the player retains access to previous evidence in the drawer.
-* **Usage Guidelines:**
-    * **Do not author drawer content directly.**
-    * The system handles the migration automatically upon lead completion.
-
----
-
-## Comprehensive Merge Example: "The Dockyard Protocol"
-
-**Current State:**
-* **Investigator:** Luc Vernier (`lvernier`)
-* **Active Case:** The Dockyard Protocol (`dockyard`)
-* **Current Status:** Lead 1 ("Ghost Container") is **Complete**. Lead 2 ("Encrypted Signal") is **Active**.
-
-### 1. The Source Layers (Backend Data)
-
-* **Layer 1: Investigator (lvernier)**
-    * `fs/tools/network_scanner.exe`
-    * `fs/notes/luc_journal.md`
-
-* **Layer 2: Case Overlay (dockyard)**
-    * `fs/briefing/mission_brief.txt`
-    * `fs/dossier/port_authority_map.img`
-
-* **Layer 3: Active Lead (lead-02)**
-    * `fs/signal_dump_raw.hex`
-    * `fs/decryption_key.txt`
-
-* **Layer 4: Drawer History (lead-01 completed)**
-    * *Previous Desk Contents:* `shipping_manifest.csv`, `container_log.txt`
-
-### 2. The Resulting Filesystem (What Luc Sees)
-
-When the terminal loads, these layers merge into this exact structure:
+**What Luc sees**
 
 ```text
-/ (THE WORKSPACE)
-├── tools/
-│   └── network_scanner.exe       <-- From Investigator Layer
-├── notes/
-│   └── luc_journal.md            <-- From Investigator Layer
-├── briefing/
-│   └── mission_brief.txt         <-- From Case Layer (Merged into Workspace)
-├── dossier/
-│   └── port_authority_map.img    <-- From Case Layer (Merged into Workspace)
+/ (Workspace)
+├── playlist/
+│   ├── blues.m3u                      <-- Investigator
+├── personal/elise/
+│   └── 2023_incident_galeries.eml     <-- Investigator
 └── desk/
-    ├── signal_dump_raw.hex       <-- From Active Lead (Layer 3)
-    ├── decryption_key.txt        <-- From Active Lead (Layer 3)
+    ├── map_grasse_valley.svg          <-- Case asset (available every lead)
+    ├── clipping_lyon_herald.svg       <-- Case asset
+    ├── doc_lab_codes.md               <-- Case asset
+    ├── manual_refractometry.md        <-- Case asset
+    ├── dossier_helene_vasseur.txt     <-- Case asset
+    ├── tool_refractometer_view.svg    <-- Active lead-02 evidence
     └── drawer/
         └── lead-01/
-            ├── shipping_manifest.csv  <-- From Drawer Rollover (Layer 4)
-            ── container_log.txt      <-- From Drawer Rollover (Layer 4)
+            ├── evidence_mouillette_strip.svg  <-- Archived after lead-01
+            └── log_visual_inspection.txt      <-- Archived after lead-01
+```
 
+Use this pattern for future cases: keep evergreen gear in the investigator layer, ship onboarding materials in the case layer, and drop clue-by-clue evidence into each lead. The overlay will do the rest.
